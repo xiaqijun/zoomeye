@@ -5,10 +5,10 @@ import uuid
 # 忽略 InsecureRequestWarning 警告
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 class ZoomEyePlugin:
-    def __init__(self,username=None, password=None,zoomeye_ip=None):
+    def __init__(self,username=None, password=None,ip=None,port=None,token=None):
         self.username=username
         self.password=password
-        self.zoomeye_ip=zoomeye_ip
+        self.zoomeye_ip=ip
     def get_token(self):
         url=f"https://{self.zoomeye_ip}/api/v4/external/login"
         headers = {
