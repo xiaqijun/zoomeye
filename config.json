@@ -1,5 +1,6 @@
 {
     "name": "zoomeye",
     "description": "Zoomeye Pro端口扫描调用插件",
-    "class_name": "ZoomEyePlugin"
+    "class_name": "ZoomEyePlugin",
+    "auth":1
 }
