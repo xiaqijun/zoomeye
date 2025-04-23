@@ -119,3 +119,18 @@ class ZoomEyePlugin:
         if response.status_code!=200:
             return False
         return True
+    
+    def get_status(self):
+        url=f"https://{self.zoomeye_ip}/api/v4/external/login"
+        headers = {
+            'Content-Type': 'application/json'
+        }
+        data = {
+            'username': self.username,
+            'password': self.password
+        }
+        response = requests.post(url, headers=headers, json=data,verify=False)
+        print(response.text)
+        if response.status_code != 200:
+            return False
+        return True
