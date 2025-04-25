@@ -18,7 +18,10 @@ class ZoomEyePlugin:
             'username': self.username,
             'password': self.password
         }
-        response = requests.post(url, headers=headers, json=data,verify=False)
+        try:
+            response = requests.post(url, headers=headers, json=data,verify=False)
+        except requests.exceptions.RequestException as e:
+            return False
         if response.status_code != 200:
             return False
         return json.loads(response.text)['data']['token']
@@ -36,7 +39,10 @@ class ZoomEyePlugin:
             'ports':ports_list,
             'protocol':["tcp"]
         }
-        response=requests.post(url=url,headers=headers,json=data,verify=False)  # Changed 'data' to 'json'
+        try:
+            response=requests.post(url=url,headers=headers,json=data,verify=False)  # Changed 'data' to 'json'
+        except requests.exceptions.RequestException as e:
+            return False
         if response.status_code!=200:
             return response.text
         return response.json()['data']['taskId']
@@ -46,8 +52,10 @@ class ZoomEyePlugin:
         headers={
             'b-json-web-token':self.get_token()
         }
-
-        response=requests.get(url=url,headers=headers,verify=False)
+        try:
+            response=requests.get(url=url,headers=headers,verify=False)
+        except requests.exceptions.RequestException as e:
+            return False
         if response.status_code!=200:
             return response.text
         return response.json()['data']['status']
@@ -63,11 +71,13 @@ class ZoomEyePlugin:
         page_size=response.json()['data']['pageSize']
         id=uuid.uuid4()
         result_file=f"tmp/result_{id}.txt"
-    
         result_list=self.result(response)
         for page in range(2,int(count/page_size)+2):
             url=f"https://{self.zoomeye_ip}/api/v4/external/detection?taskId={task_id}&page={page}"
-            response=requests.get(url=url,headers=headers,verify=False)
+            try:
+                response=requests.get(url=url,headers=headers,verify=False)
+            except requests.exceptions.RequestException as e:
+                return False
             result_list=self.result(response)
             self.write_result(result_list,result_file)
         return result_file
@@ -101,7 +111,10 @@ class ZoomEyePlugin:
         data={
             "taskId":task_id
         }
-        response=requests.post(url=url,headers=headers,json=data,verify=False)
+        try:
+            response=requests.post(url=url,headers=headers,json=data,verify=False)
+        except requests.exceptions.RequestException as e:
+            return False
         if response.status_code!=200:
             return False
         return True
@@ -114,7 +127,10 @@ class ZoomEyePlugin:
         data={
             "taskId":task_id
         }
-        response=requests.post(url=url,headers=headers,json=data,verify=False)
+        try:
+            response=requests.post(url=url,headers=headers,json=data,verify=False)
+        except requests.exceptions.RequestException as e:
+            return False
         if response.status_code!=200:
             return False
         return True
@@ -128,7 +144,10 @@ class ZoomEyePlugin:
             'username': self.username,
             'password': self.password
         }
-        response = requests.post(url, headers=headers, json=data,verify=False)
+        try:
+            response = requests.post(url, headers=headers, json=data,verify=False)
+        except requests.exceptions.RequestException as e:
+            return False
         if response.status_code != 200:
             return False
         return True
