@@ -24,13 +24,13 @@ class ZoomEyePlugin:
             return False
         return json.loads(response.text)['data']['token']
     
-    def create_task(self,target,task_name,ports):
+    def create_task(self,task_name,ip_str,port_str):
         url=f"https://{self.zoomeye_ip}/api/v4/external/detection"
         headers={
             'b-json-web-token':self.get_token()
         }
-        target_list=target.split(',')
-        ports_list=ports.split(',')
+        target_list=ip_str.split(',')
+        ports_list=port_str.split(',')
         data={
             'name':task_name,
             'target':target_list,
