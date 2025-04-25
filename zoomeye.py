@@ -19,7 +19,6 @@ class ZoomEyePlugin:
             'password': self.password
         }
         response = requests.post(url, headers=headers, json=data,verify=False)
-        print(response.text)
         if response.status_code != 200:
             return False
         return json.loads(response.text)['data']['token']
@@ -130,7 +129,6 @@ class ZoomEyePlugin:
             'password': self.password
         }
         response = requests.post(url, headers=headers, json=data,verify=False)
-        print(response.text)
         if response.status_code != 200:
             return False
         return True
