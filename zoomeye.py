@@ -2,6 +2,7 @@ import requests
 import json
 import urllib3
 import uuid
+import os
 # 忽略 InsecureRequestWarning 警告
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 class ZoomEyePlugin:
@@ -70,7 +71,8 @@ class ZoomEyePlugin:
         page=response.json()['data']['page']
         page_size=response.json()['data']['pageSize']
         id=uuid.uuid4()
-        result_file=f"tmp/result_{id}.txt"
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        result_file = os.path.join(current_dir, "tmp", f"result_{id}.txt")
         result_list=self.result(response)
         for page in range(2,int(count/page_size)+2):
             url=f"https://{self.zoomeye_ip}/api/v4/external/detection?taskId={task_id}&page={page}"
