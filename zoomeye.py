@@ -76,6 +76,7 @@ class ZoomEyePlugin:
             os.makedirs(tmp_dir)
         result_file = os.path.join(tmp_dir, f"result_{id}.txt")
         result_list=self.result(response)
+        self.write_result(result_list,result_file)
         for page in range(2,int(count/page_size)+2):
             url=f"https://{self.zoomeye_ip}/api/v4/external/detection?taskId={task_id}&page={page}"
             try:
