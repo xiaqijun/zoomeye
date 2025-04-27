@@ -71,8 +71,10 @@ class ZoomEyePlugin:
         page=response.json()['data']['page']
         page_size=response.json()['data']['pageSize']
         id=uuid.uuid4()
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        result_file = os.path.join(current_dir, "tmp", f"result_{id}.txt")
+        tmp_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "tmp")
+        if not os.path.exists(tmp_dir):
+            os.makedirs(tmp_dir)
+        result_file = os.path.join(tmp_dir, f"result_{id}.txt")
         result_list=self.result(response)
         for page in range(2,int(count/page_size)+2):
             url=f"https://{self.zoomeye_ip}/api/v4/external/detection?taskId={task_id}&page={page}"
