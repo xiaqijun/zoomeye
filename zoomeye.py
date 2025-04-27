@@ -91,6 +91,9 @@ class ZoomEyePlugin:
         with open(result_file,'a') as f:
             for ip_port in result_list:
                 f.write(json.dumps(ip_port) + '\n')
+        with open(result_file, 'rb+') as f:
+            f.seek(-1, os.SEEK_END)
+            f.truncate()
 
     def result(self,response):
         ip_port_list=[]
