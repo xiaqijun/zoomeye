@@ -4,6 +4,7 @@ import urllib3
 import uuid
 import os
 import time
+import random
 # 忽略 InsecureRequestWarning 警告
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 class ZoomEyePlugin:
@@ -36,7 +37,7 @@ class ZoomEyePlugin:
         target_list=ip_str.split(',')
         ports_list=port_str.split(',')
         data={
-            'name': f"{str(uuid.uuid4())}",
+            'name': f"{generate_task_name()}",
             'target': target_list,
             'ports': ports_list,
             'protocol': ["tcp"]
@@ -160,3 +161,9 @@ class ZoomEyePlugin:
         if response.status_code != 200:
             return False
         return True
+
+def generate_task_name():
+    timestamp = str(int(time.time()))  # 秒级时间戳（10位）
+    rand_num = str(random.randint(0, 999999)).zfill(6)  # 6位随机数，不足补0
+    task_name = f"task_{timestamp}{rand_num}"
+    return task_name
