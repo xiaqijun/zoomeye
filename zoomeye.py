@@ -35,10 +35,10 @@ class ZoomEyePlugin:
         target_list=ip_str.split(',')
         ports_list=port_str.split(',')
         data={
-            'name':task_name+str(uuid.uuid4()),
-            'target':target_list,
-            'ports':ports_list,
-            'protocol':["tcp"]
+            'name': f"{uuid.uuid4().hex[:24]}",
+            'target': target_list,
+            'ports': ports_list,
+            'protocol': ["tcp"]
         }
         try:
             response=requests.post(url=url,headers=headers,json=data,verify=False)  # Changed 'data' to 'json'
