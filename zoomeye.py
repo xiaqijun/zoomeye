@@ -35,7 +35,7 @@ class ZoomEyePlugin:
         target_list=ip_str.split(',')
         ports_list=port_str.split(',')
         data={
-            'name':task_name,
+            'name':task_name+str(uuid.uuid4()),
             'target':target_list,
             'ports':ports_list,
             'protocol':["tcp"]
