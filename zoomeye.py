@@ -3,6 +3,7 @@ import json
 import urllib3
 import uuid
 import os
+import time
 # 忽略 InsecureRequestWarning 警告
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 class ZoomEyePlugin:
@@ -35,16 +36,16 @@ class ZoomEyePlugin:
         target_list=ip_str.split(',')
         ports_list=port_str.split(',')
         data={
-            'name': f"{uuid.uuid4().hex[:24]}",
+            'name': f"{str(uuid.uuid4())}",
             'target': target_list,
             'ports': ports_list,
             'protocol': ["tcp"]
         }
         try:
-            response=requests.post(url=url,headers=headers,json=data,verify=False)  # Changed 'data' to 'json'
+            response = requests.post(url=url, headers=headers, json=data, verify=False)  # Changed 'data' to 'json'
         except requests.exceptions.RequestException as e:
             return False
-        if response.status_code!=200:
+        if response.status_code != 200:
             return response.text
         return response.json()['data']['taskId']
     
